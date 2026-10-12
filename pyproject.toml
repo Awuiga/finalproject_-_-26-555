@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "valutatrade-hub"
+version = "1.0.0"
+description = "Учебный симулятор торговли фиатными и криптовалютами с консольным интерфейсом"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{name = "Student"}]
+dependencies = ["prettytable>=3.12,<4", "requests>=2.32,<3"]
+
+[project.scripts]
+valutatrade = "valutatrade_hub.cli.interface:main"
+
+[dependency-groups]
+dev = ["ruff>=0.12", "pytest>=8.3"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["valutatrade_hub"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]  # Длинные русскоязычные строки и сообщения; форматирование отдельно.
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.valutatrade]
+data_dir = "data"
+logs_dir = "logs"
+rates_ttl_seconds = 300
+base_currency = "USD"
+log_format = "text"
+log_level = "INFO"
+log_max_bytes = 1048576
+log_backup_count = 3
+request_timeout = 10
