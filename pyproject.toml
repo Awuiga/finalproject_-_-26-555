@@ -8,7 +8,7 @@ version = "1.0.0"
 description = "Учебный симулятор торговли фиатными и криптовалютами с консольным интерфейсом"
 readme = "README.md"
 requires-python = ">=3.11"
-authors = [{name = "Student"}]
+authors = [{name = "Кислощаев"}]
 dependencies = ["prettytable>=3.12,<4", "requests>=2.32,<3"]
 
 [project.scripts]
