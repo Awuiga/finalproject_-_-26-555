@@ -45,6 +45,9 @@ def log_action(action: str, *, verbose: bool = False) -> Callable:
             if verbose and hasattr(result, "before"):
                 fields["wallet_before"] = result.before
                 fields["wallet_after"] = result.after
+                if hasattr(result, "usd_before"):
+                    fields["usd_before"] = result.usd_before
+                    fields["usd_after"] = result.usd_after
             logger.info(" ".join(f"{k}={v!r}" for k, v in fields.items()))
             return result
 

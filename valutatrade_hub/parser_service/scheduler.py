@@ -14,6 +14,7 @@ def run_scheduler(interval_seconds: int = 300) -> None:
     if interval_seconds < 60:
         raise ValueError("Интервал обновления должен быть не меньше 60 секунд")
     updater = RatesUpdater()
+    logger.info("Запуск автообновления курсов: интервал %s сек", interval_seconds)
     while True:
         try:
             updater.run_update()

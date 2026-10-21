@@ -13,3 +13,7 @@ build/
 logs/
 *.cast
 .DS_Store
+*.log
+*.tmp
+.coverage
+htmlcov/

@@ -10,7 +10,7 @@ LOGGER_NAME = "valutatrade_hub"
 
 
 def configure_logging() -> logging.Logger:
-    """Создать один файловый обработчик логов."""
+    """Настроить один файловый обработчик с ротацией, без дублирования записей."""
     settings = SettingsLoader()
     logger = logging.getLogger(LOGGER_NAME)
     logger.setLevel(str(settings.get("log_level", "INFO")).upper())

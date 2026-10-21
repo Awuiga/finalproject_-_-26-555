@@ -13,7 +13,7 @@ CRYPTO_CURRENCIES = tuple(CRYPTO_ID_MAP)
 
 @dataclass(frozen=True)
 class ParserConfig:
-    """Параметры HTTP-запросов и JSON-кэша."""
+    """Параметры API и файлов; ключ читается из переменной окружения."""
 
     exchange_api_key: str | None = field(
         default_factory=lambda: os.getenv("EXCHANGERATE_API_KEY")
