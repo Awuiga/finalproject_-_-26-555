@@ -12,7 +12,9 @@ class RatesStorage:
     def __init__(self, database: DatabaseManager | None = None) -> None:
         self.database = database or DatabaseManager()
 
-    def save(self, new_pairs: Mapping[str, dict], *, timestamp: str | None = None) -> int:
+    def save(
+        self, new_pairs: Mapping[str, dict], *, timestamp: str | None = None
+    ) -> int:
         """Обновить только более свежие пары и не дублировать историю."""
         now = timestamp or iso_now()
         updated: dict[str, dict] = {}

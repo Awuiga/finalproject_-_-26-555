@@ -24,7 +24,9 @@ class User:
         registration_date: datetime | str | None = None,
     ) -> None:
         if isinstance(user_id, bool) or not isinstance(user_id, int) or user_id <= 0:
-            raise ValidationError("Идентификатор пользователя должен быть положительным")
+            raise ValidationError(
+                "Идентификатор пользователя должен быть положительным"
+            )
         self._user_id = user_id
         self._username = ""
         self.username = username
@@ -220,7 +222,9 @@ class Portfolio:
         """Сериализовать портфель со всеми кошельками и историей."""
         return {
             "user_id": self._user.user_id,
-            "wallets": {code: wallet.to_dict() for code, wallet in self._wallets.items()},
+            "wallets": {
+                code: wallet.to_dict() for code, wallet in self._wallets.items()
+            },
             "transactions": self.transactions,
         }
 

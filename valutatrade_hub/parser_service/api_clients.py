@@ -59,15 +59,21 @@ class CoinGeckoClient(BaseApiClient):
     def fetch_rates(self) -> dict[str, float]:
         """Получить BTC/ETH/SOL → USD и проверить значения."""
         ids = [self.config.crypto_id_map[c] for c in self.config.crypto_currencies]
-        params = {"ids": ",".join(ids), "vs_currencies": self.config.base_currency.lower()}
+        params = {
+            "ids": ",".join(ids),
+            "vs_currencies": self.config.base_currency.lower(),
+        }
         try:
             response = requests.get(
-                self.config.coingecko_url, params=params,
+                self.config.coingecko_url,
+                params=params,
                 timeout=self.config.request_timeout,
             )
             data = _check_response(response)
         except requests.RequestException as exc:
-            raise ApiRequestError(f"CoinGecko: ошибка сети ({type(exc).__name__})") from exc
+            raise ApiRequestError(
+                f"CoinGecko: ошибка сети ({type(exc).__name__})"
+            ) from exc
         result = {}
         for ticker in self.config.crypto_currencies:
             coin_id = self.config.crypto_id_map[ticker]
@@ -112,8 +118,8 @@ class ExchangeRateApiClient(BaseApiClient):
             if ticker not in rates:
                 raise ApiRequestError(f"ExchangeRate-API: нет курса для {ticker}")
             # Ответ с базой USD: 1 USD = N EUR; нам нужно 1 EUR = (1/N) USD.
-            result[f"{ticker}_{self.config.base_currency}"] = (
-                1.0 / _valid_rate(rates[ticker])
+            result[f"{ticker}_{self.config.base_currency}"] = 1.0 / _valid_rate(
+                rates[ticker]
             )
         logger.debug("ExchangeRate-API: получено %s курсов", len(result))
         return result

@@ -46,7 +46,9 @@ class SettingsLoader:
         if project_config.is_file():
             try:
                 with project_config.open("rb") as stream:
-                    config.update(tomllib.load(stream).get("tool", {}).get("valutatrade", {}))
+                    config.update(
+                        tomllib.load(stream).get("tool", {}).get("valutatrade", {})
+                    )
             except (OSError, ValueError) as exc:
                 raise DataStorageError(f"Ошибка чтения pyproject.toml: {exc}") from exc
         # При установке пакета вне исходников используются папки в cwd.

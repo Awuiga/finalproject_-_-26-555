@@ -37,9 +37,7 @@ class FiatCurrency(Currency):
 class CryptoCurrency(Currency):
     """Криптовалюта с алгоритмом и оценкой капитализации."""
 
-    def __init__(
-        self, name: str, code: str, algorithm: str, market_cap: float
-    ) -> None:
+    def __init__(self, name: str, code: str, algorithm: str, market_cap: float) -> None:
         super().__init__(name, code)
         if not algorithm.strip():
             raise ValidationError("Нужно указать алгоритм криптовалюты")
@@ -54,8 +52,7 @@ class CryptoCurrency(Currency):
         """Вернуть код, название, алгоритм и компактную капитализацию."""
         mcap = f"{self.market_cap:.2e}".replace("e+", "e")
         return (
-            f"[CRYPTO] {self.code} — {self.name} "
-            f"(Algo: {self.algorithm}, MCAP: {mcap})"
+            f"[CRYPTO] {self.code} — {self.name} (Algo: {self.algorithm}, MCAP: {mcap})"
         )
 
 

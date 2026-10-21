@@ -1,1 +1,35 @@
-{"pairs": {}, "last_refresh": null}
+{
+  "pairs": {
+    "EUR_USD": {
+      "rate": 1.08,
+      "updated_at": "2026-10-21T11:46:01+00:00",
+      "source": "DEMO"
+    },
+    "GBP_USD": {
+      "rate": 1.26,
+      "updated_at": "2026-10-21T11:46:01+00:00",
+      "source": "DEMO"
+    },
+    "RUB_USD": {
+      "rate": 0.011,
+      "updated_at": "2026-10-21T11:46:01+00:00",
+      "source": "DEMO"
+    },
+    "BTC_USD": {
+      "rate": 59300.0,
+      "updated_at": "2026-10-21T11:46:01+00:00",
+      "source": "DEMO"
+    },
+    "ETH_USD": {
+      "rate": 3720.0,
+      "updated_at": "2026-10-21T11:46:01+00:00",
+      "source": "DEMO"
+    },
+    "SOL_USD": {
+      "rate": 145.0,
+      "updated_at": "2026-10-21T11:46:01+00:00",
+      "source": "DEMO"
+    }
+  },
+  "last_refresh": "2026-10-21T11:46:01+00:00"
+}

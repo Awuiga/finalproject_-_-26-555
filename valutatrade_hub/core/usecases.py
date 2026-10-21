@@ -84,14 +84,20 @@ class RateService:
         if direct in pairs:
             entry = self._fresh_pair(direct, pairs)
             return RateResult(
-                from_code, to_code, float(entry["rate"]),
-                entry["updated_at"], entry.get("source", "cache"),
+                from_code,
+                to_code,
+                float(entry["rate"]),
+                entry["updated_at"],
+                entry.get("source", "cache"),
             )
         if inverse in pairs:
             entry = self._fresh_pair(inverse, pairs)
             return RateResult(
-                from_code, to_code, 1 / float(entry["rate"]),
-                entry["updated_at"], entry.get("source", "cache (inverse)"),
+                from_code,
+                to_code,
+                1 / float(entry["rate"]),
+                entry["updated_at"],
+                entry.get("source", "cache (inverse)"),
             )
 
         # Для EUR→BTC используем EUR→USD / BTC→USD.
@@ -105,7 +111,10 @@ class RateService:
         right, right_date, right_source = usd_value(to_code)
         updated = min(parse_datetime(left_date), parse_datetime(right_date)).isoformat()
         return RateResult(
-            from_code, to_code, left / right, updated,
+            from_code,
+            to_code,
+            left / right,
+            updated,
             "+".join(sorted({left_source, right_source} - {"USD"})),
         )
 
@@ -151,7 +160,9 @@ class TradeService:
         username = username.strip()
 
         def add_user(users: list[dict]) -> User:
-            if any(item["username"].casefold() == username.casefold() for item in users):
+            if any(
+                item["username"].casefold() == username.casefold() for item in users
+            ):
                 raise AuthenticationError(f"Имя пользователя '{username}' уже занято")
             new_id = max((item["user_id"] for item in users), default=0) + 1
             new_user = User(new_id, username, password=password)
@@ -214,8 +225,11 @@ class TradeService:
 
         def modify(portfolios: list[dict]) -> Any:
             index = next(
-                (i for i, record in enumerate(portfolios)
-                 if record["user_id"] == user_id),
+                (
+                    i
+                    for i, record in enumerate(portfolios)
+                    if record["user_id"] == user_id
+                ),
                 None,
             )
             record = portfolios[index] if index is not None else {"wallets": {}}
@@ -239,12 +253,24 @@ class TradeService:
             before = usd.balance
             usd.deposit(amount)
             portfolio.record_transaction(
-                {"action": "DEMO_DEPOSIT", "currency": "USD", "amount": amount,
-                 "timestamp": iso_now()}
+                {
+                    "action": "DEMO_DEPOSIT",
+                    "currency": "USD",
+                    "amount": amount,
+                    "timestamp": iso_now(),
+                }
             )
             return TradeResult(
-                "DEMO_DEPOSIT", "USD", amount, 1.0, "USD", amount,
-                before, usd.balance, before, usd.balance,
+                "DEMO_DEPOSIT",
+                "USD",
+                amount,
+                1.0,
+                "USD",
+                amount,
+                before,
+                usd.balance,
+                before,
+                usd.balance,
             )
 
         return self._modify_portfolio(user_id, apply)
@@ -269,12 +295,26 @@ class TradeService:
             usd.withdraw(cost)
             target.deposit(amount)
             portfolio.record_transaction(
-                {"action": "BUY", "currency": currency_code, "amount": amount,
-                 "rate": rate, "usd_total": cost, "timestamp": iso_now()}
+                {
+                    "action": "BUY",
+                    "currency": currency_code,
+                    "amount": amount,
+                    "rate": rate,
+                    "usd_total": cost,
+                    "timestamp": iso_now(),
+                }
             )
             return TradeResult(
-                "BUY", currency_code, amount, rate, "USD", cost,
-                before, target.balance, usd_before, usd.balance,
+                "BUY",
+                currency_code,
+                amount,
+                rate,
+                "USD",
+                cost,
+                before,
+                target.balance,
+                usd_before,
+                usd.balance,
             )
 
         return self._modify_portfolio(user_id, apply)
@@ -302,12 +342,26 @@ class TradeService:
             usd_before = usd.balance
             usd.deposit(revenue)
             portfolio.record_transaction(
-                {"action": "SELL", "currency": currency_code, "amount": amount,
-                 "rate": rate, "usd_total": revenue, "timestamp": iso_now()}
+                {
+                    "action": "SELL",
+                    "currency": currency_code,
+                    "amount": amount,
+                    "rate": rate,
+                    "usd_total": revenue,
+                    "timestamp": iso_now(),
+                }
             )
             return TradeResult(
-                "SELL", currency_code, amount, rate, "USD", revenue,
-                before, wallet.balance, usd_before, usd.balance,
+                "SELL",
+                currency_code,
+                amount,
+                rate,
+                "USD",
+                revenue,
+                before,
+                wallet.balance,
+                usd_before,
+                usd.balance,
             )
 
         return self._modify_portfolio(user_id, apply)

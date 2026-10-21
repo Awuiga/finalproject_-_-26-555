@@ -48,8 +48,12 @@ class DatabaseManager:
         temp_name = None
         try:
             with tempfile.NamedTemporaryFile(
-                mode="w", encoding="utf-8", dir=path.parent,
-                prefix=f".{path.name}.", suffix=".tmp", delete=False,
+                mode="w",
+                encoding="utf-8",
+                dir=path.parent,
+                prefix=f".{path.name}.",
+                suffix=".tmp",
+                delete=False,
             ) as stream:
                 temp_name = stream.name
                 json.dump(data, stream, indent=2, ensure_ascii=False, allow_nan=False)
@@ -73,9 +77,7 @@ class DatabaseManager:
         with self._lock:
             self._write(self._path(filename), data)
 
-    def transaction(
-        self, filename: str, default: T, modify: Callable[[T], Any]
-    ) -> Any:
+    def transaction(self, filename: str, default: T, modify: Callable[[T], Any]) -> Any:
         """Выполнить чтение→изменение→запись под одной блокировкой."""
         with self._lock:
             path = self._path(filename)

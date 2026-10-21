@@ -1,1 +1,39 @@
-[]
+[
+  {
+    "user_id": 1,
+    "wallets": {
+      "USD": {
+        "currency_code": "USD",
+        "balance": 7628.0
+      },
+      "BTC": {
+        "currency_code": "BTC",
+        "balance": 0.04
+      }
+    },
+    "transactions": [
+      {
+        "action": "DEMO_DEPOSIT",
+        "currency": "USD",
+        "amount": 10000.0,
+        "timestamp": "2026-10-21T11:46:21+00:00"
+      },
+      {
+        "action": "BUY",
+        "currency": "BTC",
+        "amount": 0.05,
+        "rate": 59300.0,
+        "usd_total": 2965.0,
+        "timestamp": "2026-10-21T11:46:30+00:00"
+      },
+      {
+        "action": "SELL",
+        "currency": "BTC",
+        "amount": 0.01,
+        "rate": 59300.0,
+        "usd_total": 593.0,
+        "timestamp": "2026-10-21T11:46:42+00:00"
+      }
+    ]
+  }
+]

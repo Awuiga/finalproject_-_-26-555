@@ -1,7 +1,7 @@
 """Проверки входных значений и вспомогательные функции."""
 
 import math
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from .exceptions import ValidationError
 
@@ -31,7 +31,7 @@ def normalize_code(value: object) -> str:
 
 def utc_now() -> datetime:
     """Текущее время в UTC."""
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def iso_now() -> str:
@@ -43,5 +43,5 @@ def parse_datetime(value: str) -> datetime:
     """Прочитать ISO-дату; старые даты без зоны считать временем UTC."""
     parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
     if parsed.tzinfo is None:
-        parsed = parsed.replace(tzinfo=timezone.utc)
-    return parsed.astimezone(timezone.utc)
+        parsed = parsed.replace(tzinfo=UTC)
+    return parsed.astimezone(UTC)

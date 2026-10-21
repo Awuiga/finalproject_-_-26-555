@@ -1,1 +1,164 @@
-[]
+[
+  {
+    "id": "EUR_USD_2026-10-21T11:45:45+00:00",
+    "from_currency": "EUR",
+    "to_currency": "USD",
+    "rate": 1.08,
+    "timestamp": "2026-10-21T11:45:45+00:00",
+    "source": "DEMO",
+    "meta": {}
+  },
+  {
+    "id": "GBP_USD_2026-10-21T11:45:45+00:00",
+    "from_currency": "GBP",
+    "to_currency": "USD",
+    "rate": 1.26,
+    "timestamp": "2026-10-21T11:45:45+00:00",
+    "source": "DEMO",
+    "meta": {}
+  },
+  {
+    "id": "RUB_USD_2026-10-21T11:45:45+00:00",
+    "from_currency": "RUB",
+    "to_currency": "USD",
+    "rate": 0.011,
+    "timestamp": "2026-10-21T11:45:45+00:00",
+    "source": "DEMO",
+    "meta": {}
+  },
+  {
+    "id": "BTC_USD_2026-10-21T11:45:45+00:00",
+    "from_currency": "BTC",
+    "to_currency": "USD",
+    "rate": 59300.0,
+    "timestamp": "2026-10-21T11:45:45+00:00",
+    "source": "DEMO",
+    "meta": {}
+  },
+  {
+    "id": "ETH_USD_2026-10-21T11:45:45+00:00",
+    "from_currency": "ETH",
+    "to_currency": "USD",
+    "rate": 3720.0,
+    "timestamp": "2026-10-21T11:45:45+00:00",
+    "source": "DEMO",
+    "meta": {}
+  },
+  {
+    "id": "SOL_USD_2026-10-21T11:45:45+00:00",
+    "from_currency": "SOL",
+    "to_currency": "USD",
+    "rate": 145.0,
+    "timestamp": "2026-10-21T11:45:45+00:00",
+    "source": "DEMO",
+    "meta": {}
+  },
+  {
+    "id": "EUR_USD_2026-10-21T11:45:50+00:00",
+    "from_currency": "EUR",
+    "to_currency": "USD",
+    "rate": 1.08,
+    "timestamp": "2026-10-21T11:45:50+00:00",
+    "source": "DEMO",
+    "meta": {}
+  },
+  {
+    "id": "GBP_USD_2026-10-21T11:45:50+00:00",
+    "from_currency": "GBP",
+    "to_currency": "USD",
+    "rate": 1.26,
+    "timestamp": "2026-10-21T11:45:50+00:00",
+    "source": "DEMO",
+    "meta": {}
+  },
+  {
+    "id": "RUB_USD_2026-10-21T11:45:50+00:00",
+    "from_currency": "RUB",
+    "to_currency": "USD",
+    "rate": 0.011,
+    "timestamp": "2026-10-21T11:45:50+00:00",
+    "source": "DEMO",
+    "meta": {}
+  },
+  {
+    "id": "BTC_USD_2026-10-21T11:45:50+00:00",
+    "from_currency": "BTC",
+    "to_currency": "USD",
+    "rate": 59300.0,
+    "timestamp": "2026-10-21T11:45:50+00:00",
+    "source": "DEMO",
+    "meta": {}
+  },
+  {
+    "id": "ETH_USD_2026-10-21T11:45:50+00:00",
+    "from_currency": "ETH",
+    "to_currency": "USD",
+    "rate": 3720.0,
+    "timestamp": "2026-10-21T11:45:50+00:00",
+    "source": "DEMO",
+    "meta": {}
+  },
+  {
+    "id": "SOL_USD_2026-10-21T11:45:50+00:00",
+    "from_currency": "SOL",
+    "to_currency": "USD",
+    "rate": 145.0,
+    "timestamp": "2026-10-21T11:45:50+00:00",
+    "source": "DEMO",
+    "meta": {}
+  },
+  {
+    "id": "EUR_USD_2026-10-21T11:46:01+00:00",
+    "from_currency": "EUR",
+    "to_currency": "USD",
+    "rate": 1.08,
+    "timestamp": "2026-10-21T11:46:01+00:00",
+    "source": "DEMO",
+    "meta": {}
+  },
+  {
+    "id": "GBP_USD_2026-10-21T11:46:01+00:00",
+    "from_currency": "GBP",
+    "to_currency": "USD",
+    "rate": 1.26,
+    "timestamp": "2026-10-21T11:46:01+00:00",
+    "source": "DEMO",
+    "meta": {}
+  },
+  {
+    "id": "RUB_USD_2026-10-21T11:46:01+00:00",
+    "from_currency": "RUB",
+    "to_currency": "USD",
+    "rate": 0.011,
+    "timestamp": "2026-10-21T11:46:01+00:00",
+    "source": "DEMO",
+    "meta": {}
+  },
+  {
+    "id": "BTC_USD_2026-10-21T11:46:01+00:00",
+    "from_currency": "BTC",
+    "to_currency": "USD",
+    "rate": 59300.0,
+    "timestamp": "2026-10-21T11:46:01+00:00",
+    "source": "DEMO",
+    "meta": {}
+  },
+  {
+    "id": "ETH_USD_2026-10-21T11:46:01+00:00",
+    "from_currency": "ETH",
+    "to_currency": "USD",
+    "rate": 3720.0,
+    "timestamp": "2026-10-21T11:46:01+00:00",
+    "source": "DEMO",
+    "meta": {}
+  },
+  {
+    "id": "SOL_USD_2026-10-21T11:46:01+00:00",
+    "from_currency": "SOL",
+    "to_currency": "USD",
+    "rate": 145.0,
+    "timestamp": "2026-10-21T11:46:01+00:00",
+    "source": "DEMO",
+    "meta": {}
+  }
+]

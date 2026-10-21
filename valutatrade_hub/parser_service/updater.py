@@ -33,9 +33,11 @@ class RatesUpdater:
         clients: Iterable[BaseApiClient] | None = None,
         storage: RatesStorage | None = None,
     ) -> None:
-        self.clients = list(clients) if clients is not None else [
-            CoinGeckoClient(), ExchangeRateApiClient()
-        ]
+        self.clients = (
+            list(clients)
+            if clients is not None
+            else [CoinGeckoClient(), ExchangeRateApiClient()]
+        )
         self.storage = storage or RatesStorage()
 
     def run_update(self, source: str | None = None) -> UpdateResult:
@@ -46,7 +48,10 @@ class RatesUpdater:
         logger.info("%s PARSER_START source=%s", timestamp, source or "all")
         for client in self.clients:
             normalized_name = client.source_name.lower().replace("-api", "")
-            if source and source.lower() not in (normalized_name, client.source_name.lower()):
+            if source and source.lower() not in (
+                normalized_name,
+                client.source_name.lower(),
+            ):
                 continue
             try:
                 fetched = client.fetch_rates()
@@ -62,17 +67,23 @@ class RatesUpdater:
                 )
                 logger.info(
                     "%s PARSER_FETCH source=%r result=OK count=%s",
-                    timestamp, client.source_name, len(fetched),
+                    timestamp,
+                    client.source_name,
+                    len(fetched),
                 )
             except ApiRequestError as exc:
                 failures.append(f"{client.source_name}: {exc}")
                 logger.error(
                     "%s PARSER_FETCH source=%r result=ERROR error=%r",
-                    timestamp, client.source_name, str(exc),
+                    timestamp,
+                    client.source_name,
+                    str(exc),
                 )
         if not pairs:
             reason = "; ".join(failures) if failures else "нет данных от источников"
             raise ApiRequestError(reason)
         count = self.storage.save(pairs, timestamp=timestamp)
-        logger.info("%s PARSER_FINISH count=%s failures=%s", timestamp, count, len(failures))
+        logger.info(
+            "%s PARSER_FINISH count=%s failures=%s", timestamp, count, len(failures)
+        )
         return UpdateResult(count=count, refreshed_at=timestamp, failures=failures)

@@ -103,10 +103,14 @@ class Console:
             f"{action_name} выполнена: {result.amount:.4f} {result.currency_code} "
             f"по курсу {result.rate:.8f} USD/{result.currency_code}"
         )
-        print(f"  {result.currency_code}: было {result.before:.4f} → стало {result.after:.4f}")
+        print(
+            f"  {result.currency_code}: было {result.before:.4f} → стало {result.after:.4f}"
+        )
         print(f"  USD: было {result.usd_before:.4f} → стало {result.usd_after:.4f}")
-        print(f"  {'Стоимость покупки' if result.action == 'BUY' else 'Выручка'}: "
-              f"{result.total:,.2f} USD")
+        print(
+            f"  {'Стоимость покупки' if result.action == 'BUY' else 'Выручка'}: "
+            f"{result.total:,.2f} USD"
+        )
 
     def _update_rates(self, source: str | None) -> None:
         result = RatesUpdater().run_update(source)
@@ -138,9 +142,13 @@ class Console:
                 rate = self.rates.get_rate(code, base).rate
             rows.append((code, rate, entry["updated_at"], entry["source"]))
         if args.top:
-            rows = [row for row in rows if CURRENCY_REGISTRY[row[0]].__class__.__name__ == "CryptoCurrency"]
+            rows = [
+                row
+                for row in rows
+                if CURRENCY_REGISTRY[row[0]].__class__.__name__ == "CryptoCurrency"
+            ]
             rows.sort(key=lambda row: row[1], reverse=True)
-            rows = rows[:args.top]
+            rows = rows[: args.top]
         else:
             rows.sort(key=lambda row: row[0])
         if not rows:
@@ -156,16 +164,24 @@ class Console:
         from valutatrade_hub.parser_service.storage import RatesStorage
 
         sample = {
-            "EUR_USD": 1.08, "GBP_USD": 1.26, "RUB_USD": 0.011,
-            "BTC_USD": 59300.0, "ETH_USD": 3720.0, "SOL_USD": 145.0,
+            "EUR_USD": 1.08,
+            "GBP_USD": 1.26,
+            "RUB_USD": 0.011,
+            "BTC_USD": 59300.0,
+            "ETH_USD": 3720.0,
+            "SOL_USD": 145.0,
         }
         now = iso_now()
         count = RatesStorage(self.database).save(
-            {key: {"rate": value, "updated_at": now, "source": "DEMO"}
-             for key, value in sample.items()},
+            {
+                key: {"rate": value, "updated_at": now, "source": "DEMO"}
+                for key, value in sample.items()
+            },
             timestamp=now,
         )
-        print(f"Загружено {count} учебных курсов DEMO. Это НЕ реальные рыночные данные.")
+        print(
+            f"Загружено {count} учебных курсов DEMO. Это НЕ реальные рыночные данные."
+        )
 
     def execute(self, line: str) -> bool:
         """Выполнить одну строку. Вернуть False для завершения оболочки."""
@@ -189,8 +205,18 @@ class Console:
                 print("Вы вышли из профиля")
                 return True
             supported = {
-                "register", "login", "show-portfolio", "deposit-demo", "buy", "sell",
-                "get-rate", "update-rates", "show-rates", "demo-rates", "history", "scheduler",
+                "register",
+                "login",
+                "show-portfolio",
+                "deposit-demo",
+                "buy",
+                "sell",
+                "get-rate",
+                "update-rates",
+                "show-rates",
+                "demo-rates",
+                "history",
+                "scheduler",
             }
             if command not in supported:
                 print(f"Неизвестная команда '{command}'. Введите help.")
@@ -198,35 +224,54 @@ class Console:
             args = self._parse(command, values)
             if command == "register":
                 user = self.service.register(args.username, args.password)
-                print(f"Пользователь '{user.username}' зарегистрирован (id={user.user_id}). Войдите: login")
+                print(
+                    f"Пользователь '{user.username}' зарегистрирован (id={user.user_id}). Войдите: login"
+                )
             elif command == "login":
                 user = self.service.login(args.username, args.password)
-                self.current_user_id, self.current_username = user.user_id, user.username
+                self.current_user_id, self.current_username = (
+                    user.user_id,
+                    user.username,
+                )
                 print(f"Вы вошли как '{user.username}'")
             elif command == "show-portfolio":
                 user_id = self._require_login()
-                portfolio, rows, total = self.service.portfolio_values(user_id, args.base)
-                print(f"Портфель пользователя '{portfolio.user.username}' (база: {args.base.upper()}):")
+                portfolio, rows, total = self.service.portfolio_values(
+                    user_id, args.base
+                )
+                print(
+                    f"Портфель пользователя '{portfolio.user.username}' (база: {args.base.upper()}):"
+                )
                 if not rows:
                     print("Портфель пока пуст. Для начала: deposit-demo --amount 10000")
                 else:
                     for code, quantity, value in rows:
-                        print(f"  {code}: {quantity:.4f} → {value:,.2f} {args.base.upper()}")
+                        print(
+                            f"  {code}: {quantity:.4f} → {value:,.2f} {args.base.upper()}"
+                        )
                     print(f"ИТОГО: {total:,.2f} {args.base.upper()}")
             elif command == "deposit-demo":
                 result = self.service.deposit_demo(self._require_login(), args.amount)
-                print(f"Добавлено {result.amount:.2f} виртуальных USD. Баланс: {result.after:.2f} USD")
+                print(
+                    f"Добавлено {result.amount:.2f} виртуальных USD. Баланс: {result.after:.2f} USD"
+                )
             elif command == "buy":
-                result = self.service.buy(self._require_login(), args.currency, args.amount)
+                result = self.service.buy(
+                    self._require_login(), args.currency, args.amount
+                )
                 self._display_trade(result)
             elif command == "sell":
-                result = self.service.sell(self._require_login(), args.currency, args.amount)
+                result = self.service.sell(
+                    self._require_login(), args.currency, args.amount
+                )
                 self._display_trade(result)
             elif command == "get-rate":
                 rate = self.rates.get_rate(args.from_code, args.to_code)
                 print(f"Курс {rate.from_code}→{rate.to_code}: {rate.rate:.8f}")
                 print(f"Обновлено: {rate.updated_at}; источник: {rate.source}")
-                print(f"Обратный курс {rate.to_code}→{rate.from_code}: {1 / rate.rate:.8f}")
+                print(
+                    f"Обратный курс {rate.to_code}→{rate.from_code}: {1 / rate.rate:.8f}"
+                )
             elif command == "update-rates":
                 self._update_rates(args.source)
             elif command == "show-rates":
@@ -238,16 +283,24 @@ class Console:
                 if not portfolio.transactions:
                     print("История операций пуста")
                 for entry in portfolio.transactions:
-                    print(f"{entry['timestamp']} {entry['action']} "
-                          f"{entry['amount']:.4f} {entry['currency']}")
+                    print(
+                        f"{entry['timestamp']} {entry['action']} "
+                        f"{entry['amount']:.4f} {entry['currency']}"
+                    )
             elif command == "scheduler":
-                print(f"Запущен планировщик, интервал {args.interval} сек (Ctrl+C — стоп)")
+                print(
+                    f"Запущен планировщик, интервал {args.interval} сек (Ctrl+C — стоп)"
+                )
                 run_scheduler(args.interval)
         except CurrencyNotFoundError as exc:
-            print(f"Ошибка: {exc}. Поддерживаемые коды: {', '.join(CURRENCY_REGISTRY)}.")
+            print(
+                f"Ошибка: {exc}. Поддерживаемые коды: {', '.join(CURRENCY_REGISTRY)}."
+            )
             print("Справка: help get-rate")
         except ApiRequestError as exc:
-            print(f"Ошибка: {exc}. Проверьте сеть, ключ API или выполните update-rates.")
+            print(
+                f"Ошибка: {exc}. Проверьте сеть, ключ API или выполните update-rates."
+            )
         except (ValutaTradeError, ValueError) as exc:
             print(f"Ошибка: {exc}")
         except SystemExit:
