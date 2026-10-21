@@ -204,16 +204,17 @@ class Portfolio:
         base_currency: str = "USD",
         rate_provider: Callable[[str, str], float] | None = None,
     ) -> float:
-        """Посчитать стоимость всех кошельков через предоставленный источник курсов."""
+        """Посчитать стоимость кошельков через переданный источник или текущий кеш."""
         base = get_currency(base_currency).code
         if rate_provider is None:
             # Используем те же курсы, что и консольная команда show-portfolio.
             from .usecases import RateService
 
             rates = RateService()
-            rate_provider = lambda from_code, to_code: rates.get_rate(
-                from_code, to_code
-            ).rate
+            def cached_rate(from_code: str, to_code: str) -> float:
+                return rates.get_rate(from_code, to_code).rate
+
+            rate_provider = cached_rate
         total = 0.0
         for code, wallet in self._wallets.items():
             if wallet.balance == 0:
