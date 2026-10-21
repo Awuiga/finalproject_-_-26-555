@@ -42,8 +42,13 @@ uv run valutatrade
 | `show-portfolio --base EUR` | Оценить портфель в EUR |
 | `get-rate --from BTC --to USD` | Посмотреть курс и время обновления |
 | `update-rates` | Загрузить курсы из API |
+| `update-rates --source coingecko` | Обновить только криптовалюты |
 | `show-rates` | Показать таблицу сохранённых курсов |
+| `show-rates --currency BTC` | Показать только BTC |
 | `show-rates --top 2` | Две самые дорогие криптовалюты в кеше |
+| `show-rates --base EUR` | Показать курсы относительно EUR |
+| `demo-rates` | Записать учебные курсы для проверки без сети |
+| `scheduler --interval 300` | Запускать обновление каждые 300 секунд (остановка Ctrl+C) |
 | `history` | История операций пользователя |
 | `currencies` | Поддерживаемые валюты |
 | `help` | Список доступных команд |
