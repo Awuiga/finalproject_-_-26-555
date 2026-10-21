@@ -15,7 +15,7 @@ dependencies = ["prettytable>=3.12,<4", "requests>=2.32,<3"]
 valutatrade = "valutatrade_hub.cli.interface:main"
 
 [dependency-groups]
-dev = ["ruff>=0.12", "pytest>=8.3"]
+dev = ["ruff>=0.12"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["valutatrade_hub"]
@@ -27,9 +27,6 @@ target-version = "py311"
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
 ignore = ["E501"]  # Длинные русскоязычные строки и сообщения; форматирование отдельно.
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
 
 [tool.valutatrade]
 data_dir = "data"

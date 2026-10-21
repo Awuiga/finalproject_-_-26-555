@@ -10,7 +10,6 @@ build/
 .vscode/
 .env
 .env.*
-!.env.example
 logs/
 *.cast
 .DS_Store

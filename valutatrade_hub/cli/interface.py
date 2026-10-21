@@ -5,10 +5,7 @@ import shlex
 import sys
 from typing import Any
 
-try:
-    from prettytable import PrettyTable
-except ModuleNotFoundError:  # Без сети возможно просмотреть результаты.
-    from valutatrade_hub.cli.table_fallback import PrettyTable
+from prettytable import PrettyTable
 
 from valutatrade_hub.core.currencies import CURRENCY_REGISTRY, get_currency
 from valutatrade_hub.core.exceptions import (
