@@ -24,13 +24,13 @@ uv run valutatrade
 
 Альтернативный запуск после установки: `uv run python main.py`. Если `uv` не установлен: <https://docs.astral.sh/uv/getting-started/installation/>.
 
-**Примечание к переданному архиву.** В среде сборки интернет и PyPI были недоступны, поэтому `uv.lock` невозможно было достоверно сформировать и `uv sync` не проверялся. При первом выполнении `uv sync --group dev` на машине с интернетом uv создаст корректный `uv.lock` автоматически. После этого добавьте его в Git. Не подменяйте `uv.lock` вручную.
+**Зависимости и сборка проверены:** `uv.lock` создан и сохранён в Git; `uv sync --group dev`, `uv run ruff check .`, `uv run ruff format --check .` и `uv build` успешно выполнены на Windows (Python 3.12). Проверка реальных ответов API выполняется отдельно при наличии сети и ключа.
 
 ### Реальные курсы и ключ API
 
 1. Зарегистрируйте учебный ключ на <https://www.exchangerate-api.com/>.
-2. В PowerShell задайте переменную ` $env:EXCHANGERATE_API_KEY="ваш_ключ" ` (в Linux/WSL: `export EXCHANGERATE_API_KEY="ваш_ключ"`).
-3. В приложении выполните `update-rates`, затем `show-rates`.
+2. В PowerShell **локально**, до запуска приложения, задайте переменную `$env:EXCHANGERATE_API_KEY="ваш_ключ"` (в Linux/WSL: `export EXCHANGERATE_API_KEY="ваш_ключ"`). Даже учебный ключ не публикуйте в репозитории; не добавляйте его в Git.
+3. Запустите `uv run valutatrade`; в приложении выполните `update-rates`, затем `show-rates`, `get-rate --from EUR --to USD` и `get-rate --from BTC --to USD`.
 4. Ключ не вставляется в исходники. Файлы `.env` исключены из Git. Наличие `.env` само по себе не загружает ключ: переменную нужно экспортировать в окружение.
 
 Если нет ключа, `update-rates` продолжит загрузку криптовалют CoinGecko; ошибка второго API появится отдельно. При отсутствии интернета используйте **`demo-rates`**: загрузятся **фиксированные учебные, а не настоящие курсы**.
@@ -103,7 +103,7 @@ finalproject_Кислощаев_М26-555/
 ├── docs/
 │   └── valutatrade_demo.gif       # демонстрация полного CLI-сценария
 ├── main.py
-├── uv.lock                       # создаётся командой uv lock при доступе к PyPI
+├── uv.lock                       # зафиксированные версии зависимостей
 ├── pyproject.toml
 ├── .gitignore
 └── README.md
@@ -161,9 +161,8 @@ uv build
 ```bash
 git status
 git log --oneline -5
-# После создания uv.lock:
-git add uv.lock
-git commit -m "build: lock dependencies"
+# Проверка изменений:
+git status
 ```
 
 ### Демо-запись
